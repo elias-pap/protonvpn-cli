@@ -352,6 +352,7 @@ function modify_dns() {
       done
     else # non-Mac
       echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "/etc/resolv.conf"
+      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
     fi
   fi
 
@@ -366,6 +367,7 @@ function modify_dns() {
       done
     else # non-Mac
       echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" > "/etc/resolv.conf"
+      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
     fi
   fi
 
@@ -383,7 +385,11 @@ function modify_dns() {
         fi
       done
     else # non-Mac
-      cp "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_backup" "/etc/resolv.conf"
+      if [[ $(diff "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup" "/etc/resolv.conf") ]]; then
+        echo "[*] DNS was modified. Keeping the new version."
+      else
+        cp "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_backup" "/etc/resolv.conf"
+      fi
     fi
   fi
 }
