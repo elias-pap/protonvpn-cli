@@ -367,7 +367,7 @@ function modify_dns() {
       done
     else # non-Mac
       echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" > "/etc/resolv.conf"
-      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
+      echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
     fi
   fi
 
