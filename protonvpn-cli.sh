@@ -351,8 +351,7 @@ function modify_dns() {
         networksetup -setdnsservers "$interface" $dns_server
       done
     else # non-Mac
-      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "/etc/resolv.conf"
-      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
+      echo -e "# ProtonVPN DNS - protonvpn-cli\nnameserver $dns_server" | tee "/etc/resolv.conf" "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup" 1> /dev/null
     fi
   fi
 
@@ -366,8 +365,7 @@ function modify_dns() {
         networksetup -setdnsservers "$interface" $dns_server
       done
     else # non-Mac
-      echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" > "/etc/resolv.conf"
-      echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" > "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup"
+      echo -e "# ProtonVPN DNS - Custom DNS\nnameserver $dns_server" | tee "/etc/resolv.conf" "$(get_protonvpn_cli_home)/.resolv.conf.protonvpn_applied_backup" 1> /dev/null
     fi
   fi
 
